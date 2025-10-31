@@ -14,26 +14,19 @@ pipeline {
                 sh "ls -la src/"
             }
         }
-        stage('Test') {
+        stage('Build Docker Image') {
             steps {
-                echo "Running health check..."
-                sh "chmod +x scripts/health-check.sh"
-                sh "./scripts/health-check.sh"
+                echo "Building Docker image: ${IMAGE_NAME}:${IMAGE_TAG}"
+                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
         stage('Test') {
             steps {
                 echo "Running health check on Docker container..."
                 sh "docker run -d --name test-container -p 8080:80 ${IMAGE_NAME}:${IMAGE_TAG}"
-                sh "sleep 5"  // انتظر شوية علشان الـ container يشتغل
+                sh "sleep 5"
                 sh "curl -s --head http://localhost:8080 | grep '200 OK'"
                 sh "docker stop test-container && docker rm test-container"
-            }
-        }
-        stage('Build Docker Image') {
-            steps {
-                echo "Building Docker image: ${IMAGE_NAME}:${IMAGE_TAG}"
-                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
         stage('Login to Docker Hub') {
