@@ -21,12 +21,6 @@ pipeline {
                 sh "./scripts/health-check.sh"
             }
         }
-        stage('Build Docker Image') {
-            steps {
-                echo "Building Docker image: ${IMAGE_NAME}:${IMAGE_TAG}"
-                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
-            }
-        }
         stage('Test') {
             steps {
                 echo "Running health check on Docker container..."
@@ -34,6 +28,12 @@ pipeline {
                 sh "sleep 5"  // انتظر شوية علشان الـ container يشتغل
                 sh "curl -s --head http://localhost:8080 | grep '200 OK'"
                 sh "docker stop test-container && docker rm test-container"
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                echo "Building Docker image: ${IMAGE_NAME}:${IMAGE_TAG}"
+                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
         stage('Login to Docker Hub') {
