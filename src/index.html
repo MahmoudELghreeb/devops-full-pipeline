@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DevOps Full Pipeline</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .header { color: #2c3e50; }
+        .pipeline { color: #3498db; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">🚀 DevOps Full Pipeline</h1>
+        <p class="pipeline">Git → Jenkins → Docker → Kubernetes</p>
+        <p>Automated Build, Test, and Deployment</p>
+        <p>Deployed at: <span id="time"></span></p>
+    </div>
+    <script>
+        document.getElementById('time').textContent = new Date().toLocaleString();
+    </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  APP_NAME: "Devops Full Pipeling"
+  LOG_LEVEL: "info"
+

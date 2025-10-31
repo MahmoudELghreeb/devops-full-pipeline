@@ -1,0 +1,12 @@
+# Logs
+*.log
+
+# Docker
+.dockerignore
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
